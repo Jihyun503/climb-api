@@ -149,3 +149,29 @@ REST_FRAMEWORK = {
 # AUTH_USER_MODEL = "user.User"
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
+
+CORS_ORIGIN_ALLOW_ALL = True  # TODO 실서비스 배포시 False
+CORS_ALLOW_CREDENTIALS = False
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
+
+# CORS_ORIGIN_WHITELIST = ("허용할 URL",)
