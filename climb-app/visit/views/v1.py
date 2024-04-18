@@ -6,18 +6,34 @@ from visit.models import Visitor
 from visit.serializers.v1 import VisitorSerializer, VisitorRequestSerializer
 from visit.helper.visit import VisitManager
 from django.db import transaction
+from climb.helpers.pagination import StandardResultsPagination
 
 
 class VisitViewSet(viewsets.ModelViewSet):
-    queryset = Visitor.objects.all()
+    queryset = Visitor.objects.order_by("-id")
     permission_classes = [AllowAny]
     serializer_class = VisitorSerializer
+    pagination_class = StandardResultsPagination
     visit_manager = VisitManager()
 
-    def list(self, request):
-        serializer = self.get_serializer(self.queryset, many=True)
+    """
+        GET v1/visit/
+        일일권 목록 조회
+    """
 
-        return Response(serializer.data)
+    def list(self, request):
+        queryset = self.visit_manager.get_visitor(self.queryset, request)
+
+        page = self.paginate_queryset(queryset)
+
+        serializer = self.get_serializer(page, many=True)
+
+        return self.get_paginated_response(serializer.data)
+
+    """
+        POST v1/visit/
+        일일권 등록
+    """
 
     @transaction.atomic
     def create(self, request):
