@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from rest_framework import status, viewsets
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from user.serializers.v1 import LoginUserRequestSerializer, UserResponseSerializer
 from rest_framework.authtoken.models import Token
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class AuthViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
 
     """
@@ -75,11 +75,3 @@ class UserViewSet(viewsets.ModelViewSet):
         user_serializer = UserResponseSerializer(user)
 
         return Response(data={"user": user_serializer.data, "token": token.key})
-
-    """
-        DELETE v1/user/logout/
-        로그아웃
-    """
-
-    def logout(self, request):
-        return Response()
