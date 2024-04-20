@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import status, viewsets
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from visit.models import Visitor
 from visit.serializers.v1 import VisitorSerializer, VisitorRequestSerializer
@@ -9,26 +9,9 @@ from django.db import transaction
 from climb.helpers.pagination import StandardResultsPagination
 
 
-class VisitViewSet(viewsets.ModelViewSet):
+class UserVisitViewSet(viewsets.ModelViewSet):
     queryset = Visitor.objects.order_by("-id")
     permission_classes = [AllowAny]
-    serializer_class = VisitorSerializer
-    pagination_class = StandardResultsPagination
-    visit_manager = VisitManager()
-
-    """
-        GET v1/visit/
-        일일권 목록 조회
-    """
-
-    def list(self, request):
-        queryset = self.visit_manager.get_visitor(self.queryset, request)
-
-        page = self.paginate_queryset(queryset)
-
-        serializer = self.get_serializer(page, many=True)
-
-        return self.get_paginated_response(serializer.data)
 
     """
         POST v1/visit/
@@ -65,3 +48,25 @@ class VisitViewSet(viewsets.ModelViewSet):
                 "data": {"name": name},
             }
         )
+
+
+class VisitViewSet(viewsets.ModelViewSet):
+    queryset = Visitor.objects.order_by("-id")
+    permission_classes = [IsAuthenticated]
+    serializer_class = VisitorSerializer
+    pagination_class = StandardResultsPagination
+    visit_manager = VisitManager()
+
+    """
+        GET v1/visit/
+        일일권 목록 조회
+    """
+
+    def list(self, request):
+        queryset = self.visit_manager.get_visitor(self.queryset, request)
+
+        page = self.paginate_queryset(queryset)
+
+        serializer = self.get_serializer(page, many=True)
+
+        return self.get_paginated_response(serializer.data)
