@@ -1,0 +1,33 @@
+version: "3.0"
+services:
+  nginx:
+    restart: unless-stopped
+    platform: linux/arm64
+    environment:
+      TZ: "Asia/Seoul"
+    image: arm64v8/nginx:latest
+    container_name: climb-nginx
+    ports:
+      - "80:80"
+    command: >
+      bash -c "sleep 10 && nginx -g \"daemon off;\""
+    volumes:
+      - ./climb-app:/climb-app
+      - climb-nginx-configs:/etc/nginx/conf.d
+    depends_on: # 서비스 간의 종속성 표현
+      - climb
+  climb:
+    platform: linux/arm64/v8
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: climb
+    environment:
+      - DJANGO_SETTINGS_MODULE=climb.settings.production
+    volumes:
+      - ./climb-app:/climb-app
+      - climb-nginx-configs:/climb-configs/nginx
+volumes:
+  climb-configs:
+  climb-nginx-configs:
