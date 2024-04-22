@@ -14,7 +14,7 @@ RUN apt-get update \
     && apt-get install tdsodbc -y \
     && apt-get install --reinstall build-essential -y \
     && apt-get install curl -y \
-    && apt-get install vim -y \
+    && apt-get install vim -y
 
 COPY ./requirements.txt /requirements.txt
 
