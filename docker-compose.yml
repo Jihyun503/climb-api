@@ -24,6 +24,7 @@ services:
     container_name: climb
     environment:
       - DJANGO_SETTINGS_MODULE=climb.settings.production
+    command: bash -c "python3 manage.py migrate"
     volumes:
       - ./climb-app:/climb-app
       - climb-nginx-configs:/climb-configs/nginx
