@@ -1,11 +1,10 @@
-version: "3.0"
 services:
   nginx:
     restart: unless-stopped
-    platform: linux/arm64
+    platform: linux/amd64
     environment:
       TZ: "Asia/Seoul"
-    image: arm64v8/nginx:latest
+    image: amd64/nginx:latest
     container_name: climb-nginx
     ports:
       - "80:80"
@@ -17,7 +16,7 @@ services:
     depends_on: # 서비스 간의 종속성 표현
       - climb
   climb:
-    platform: linux/arm64/v8
+    platform: linux/amd64/v8
     restart: always
     build:
       context: .

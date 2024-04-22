@@ -1,8 +1,6 @@
-FROM arm64v8/python:3.11.1-bullseye
+FROM amd64/python:3.11.1-bullseye
 
-LABEL maintainer="wlgus7313@gmail.com"
-
-#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 ENV PYTHONUNBUFFERED 1
 
