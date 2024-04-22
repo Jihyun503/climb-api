@@ -31,6 +31,7 @@ INTERNAL_IPS = ["127.0.0.1", "0.0.0.0"]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
+    "http://dccg-nowon-env.eba-uwrkgnxq.ap-northeast-2.elasticbeanstalk.com",
 ]
 
 
