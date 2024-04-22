@@ -1,8 +1,8 @@
 FROM arm64v8/python:3.11.1-bullseye
 
-SHELL ["/bin/bash", "-c"]
+#SHELL ["/bin/bash", "-c"]
 
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 ENV PYTHONUNBUFFERED 1
 
@@ -15,8 +15,6 @@ RUN apt-get update \
     && apt-get install --reinstall build-essential -y \
     && apt-get install curl -y \
     && apt-get install vim -y \
-    && apt-get install redis -y \
-    && apt-get install redis-tools -y
 
 COPY ./requirements.txt /requirements.txt
 
