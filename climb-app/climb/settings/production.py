@@ -15,7 +15,7 @@ environ.Env.read_env(env_file=os.path.join(BASE_DIR, "envs/.env.production"))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # TODO 나중에 False로 수정
 
 ALLOWED_HOSTS = ["*"]
 
