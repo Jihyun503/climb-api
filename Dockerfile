@@ -1,4 +1,4 @@
-FROM amd64/python:3.11.1-bullseye
+FROM arm64/python:3.11.1-bullseye
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 

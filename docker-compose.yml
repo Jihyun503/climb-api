@@ -16,7 +16,7 @@ services:
     depends_on: # 서비스 간의 종속성 표현
       - climb
   climb:
-    platform: linux/amd64/v8
+    platform: linux/amd64/v4
     restart: always
     build:
       context: .
